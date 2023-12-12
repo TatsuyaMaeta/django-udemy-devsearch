@@ -3,4 +3,9 @@
 <h1>Single Project</h1>
 <h2>Title: {{project.title}}</h2>
 <p>Description: {{project.description}}</p>
-a {% endblock content %}
+
+<hr>
+{% for tag in tags %}
+<span style="border:1px solid gray;">{{tag}}</span>
+{% endfor %}
+{% endblock content %}
