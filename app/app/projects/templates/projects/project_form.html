@@ -1,0 +1,18 @@
+{% extends 'main.html' %} {% block content %}
+
+<h1>Project Form</h1>
+
+<form action="" method="POST">
+    {% csrf_token %} {% comment %} {{ form }} {% endcomment %}
+    <hr />
+
+    {% comment %}{% for f in form %} {{ forloop.counter }} : {{ f.name }}
+    <br />
+    {{ f }}
+    <hr />
+    {% endfor %} でもリンク{{ form.demo_link }} {% endcomment %} 
+{{form.as_p}}
+
+    <input type="submit" />
+</form>
+{% endblock content %}

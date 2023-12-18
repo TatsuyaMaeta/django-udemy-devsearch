@@ -2,7 +2,10 @@ FROM python:3.8.13-slim-buster
 WORKDIR /app
 COPY ./app ./
 
-RUN apt-get update
+RUN chmod +x /app/entrypoint.sh
+CMD ["bash", "-c", "/app/entrypoint.sh"]
+
+# RUN apt-get update
 # RUN apt-get install -y vim less
 
 # postgresqlのdev用のものをinstall

@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% comment %} こいつがないと削除できないのでformの際は毎回つけること {% endcomment %}
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{object}}"</p>
+    <a href="{% url 'projects' %}"><button>
+        Go back
+    </button></a>
+
+    <input type="submit" value="Confirm">
+</form>
+{% endblock content %}

@@ -14,3 +14,23 @@ link[link](https://docs.djangoproject.com/en/5.0/ref/models/querysets/#queryset-
 2. ModelName.objects.get()
 3. ModelName.objects.filter()
 4. ModelName.objects.exclude()
+
+__(ダブルアンダースコア)はQuerySetメソッドに対してどのカラムに対してどんな要素で情報を取ってくるかを意味している
+```
+>>> Entry.objects.filter(pub_date__lte="2006-01-01")
+```
+上記は下記のSQLと同等
+```
+SELECT * FROM blog_entry WHERE pub_date <= '2006-01-01';
+```
+「__lte」が詳細なデータのとってき方に相当している
+query set チートシート
+https://qiita.com/uenosy/items/54136aff0f6373957d22
+https://zenn.dev/wtkn25/articles/django-field-lookups
+
+チートシート
+https://qiita.com/maisuto/items/bcdb0fd6c63cf0c544d6
+
+
+フォームのカスタマイズを自由にするには??→'widget_tweaks'
+https://hodalog.com/how-to-use-bootstrap-4-forms-with-django/

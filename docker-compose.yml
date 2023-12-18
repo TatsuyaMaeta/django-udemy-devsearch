@@ -1,27 +1,28 @@
 version: "3"
 
 services:
-    django_app_20231210:
+    django_app_udemy:
         build: ./app
         env_file:
             - ./app/app/.env
-        image: web_django_app_20231210:latest
+        image: web_django_app_udemy:latest
         # volumes:
-        #     - static_vol:/app/sub_app/static
+        #     - static_vol:/app/projects/static
         #     - media_vol:/app/sub_app/media
         ports:
             - "8000:8000"
+        restart: always
 
     nginx:
         build: ./nginx
-        image: nginx_web_20231210:latest
+        image: nginx_web_udemy:latest
         # volumes:
         #     - static_vol:/app/sub_app/static
         #     - media_vol:/app/sub_app/media
         ports:
             - "80:80"
         depends_on:
-            - django_app_20231210
-volumes:
-    static_vol:
-    media_vol:
+            - django_app_udemy
+# volumes:
+#     static_vol:
+#     media_vol:
