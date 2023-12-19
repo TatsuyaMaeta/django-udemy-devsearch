@@ -1,8 +1,13 @@
 from django.db import models
 import uuid
-
+from users.models import Profile
 # Create your models here.
 class Project(models.Model):
+    # ForeignKey:別のテーブルの情報を持ってきますよ
+    # この場合、Profile tableから情報持ってきていて、Profile Classはデフォルトだとnameを戻す設定になっている
+    # テンプレートでは詳細のテーブル名を指定したらそのテーブル名で情報を取得できる
+    owner = models.ForeignKey(Profile, blank=True, null=True,on_delete=models.SET_NULL)
+    
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     # あとからこれを追加。画像を扱うならpillowが必要なのでinstallすること

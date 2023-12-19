@@ -67,3 +67,6 @@ nginxなどのwebサーバ無しに、静的ファイルを提供できるライ
 pip install whitenoise
 ```
 https://pypi.org/project/whitenoise/
+
+staticなファイルの本番環境での読み込みについて
+https://tell-k.github.io/djangocongressjp2019

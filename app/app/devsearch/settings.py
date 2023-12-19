@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-h9zahv%p$bz@jw6!=2)1#jf$p%gg77f$avk^z-fqs$nkvpu*s_
 DEBUG = True
 
 # http://とかはいらない。domainだけ入れればいい
-ALLOWED_HOSTS = ["localhost","127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -41,11 +41,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 追加
     "projects.apps.ProjectsConfig",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -124,12 +125,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/images/'
+STATIC_URL = "/static/"
+MEDIA_URL = "/images/"
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "static/images")
 # collectstaticした時のpath, 本番の時にこれが重要
