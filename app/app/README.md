@@ -34,3 +34,8 @@ https://qiita.com/maisuto/items/bcdb0fd6c63cf0c544d6
 
 フォームのカスタマイズを自由にするには??→'widget_tweaks'
 https://hodalog.com/how-to-use-bootstrap-4-forms-with-django/
+
+## テンプレート内での組み込みタグ一覧
+projects.html内でのpluralizeから調べた内容
+pluralize:valueが1でない場合に複数形を返すタグ
+https://qiita.com/nachashin/items/d3f9cd637a9cecbda72c

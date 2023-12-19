@@ -59,3 +59,11 @@ docker-compose up --build
 docker system  prune -a --volumes
 
 python my_app/manage.py collectstatic
+
+## whitenoise とは
+nginxなどのwebサーバ無しに、静的ファイルを提供できるライブラリ
+使用の際のコマンド
+```
+pip install whitenoise
+```
+https://pypi.org/project/whitenoise/
