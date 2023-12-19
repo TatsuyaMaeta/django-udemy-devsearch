@@ -1,5 +1,7 @@
 {% extends 'main.html' %}
  {% block content %}
+{{ projects.featured_image.url }}
+<img src="{{ project.featured_image.url }}" style="max-width:500px;" alt="">
 <h1>Single Project</h1>
 <h2>Title: {{project.title}}</h2>
 <p>Description: {{project.description}}</p>

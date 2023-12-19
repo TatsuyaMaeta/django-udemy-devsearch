@@ -5,6 +5,9 @@ import uuid
 class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
+    # あとからこれを追加。画像を扱うならpillowが必要なのでinstallすること
+    # 新しくmodelを追加した時点でDBと整合性が取れなくなるのでmakemigration -> migrateすること
+    featured_image = models.ImageField(null=True, blank=True, default="default.jpg")
     demo_link = models.CharField(max_length=2000, null=True, blank=True)
     source_link = models.CharField(max_length=2000, null=True, blank=True)
     tags = models.ManyToManyField("Tag", blank=True)

@@ -38,7 +38,7 @@ def createProject(request):
     form = ProjectForm()
 
     if request.method == "POST":
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             # ここでのredirect先の指定はurls.pyのurlpatternのnameを指定している
@@ -53,7 +53,8 @@ def updateProject(request, pk):
     form = ProjectForm(instance=project)
 
     if request.method == "POST":
-        form = ProjectForm(request.POST, instance=project)
+        # mediaファイルを追加できるように変更したのでupdateにもfileについて追加する
+        form = ProjectForm(request.POST,request.FILES, instance=project)
         if form.is_valid():
             form.save()
             # ここでのredirect先の指定はurls.pyのurlpatternのnameを指定している

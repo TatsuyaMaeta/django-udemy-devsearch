@@ -7,4 +7,4 @@ class ProjectForm(ModelForm):
         model = Project
         # fields="__all__"
         # 特定のカラム要素だけ渡すこともできる
-        fields = ["title", "description", "demo_link", "source_link", "tags"]
+        fields = ["title","featured_image", "description", "demo_link", "source_link", "tags"]
