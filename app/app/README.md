@@ -39,3 +39,21 @@ https://hodalog.com/how-to-use-bootstrap-4-forms-with-django/
 projects.html内でのpluralizeから調べた内容
 pluralize:valueが1でない場合に複数形を返すタグ
 https://qiita.com/nachashin/items/d3f9cd637a9cecbda72c
+
+
+## 別テーブルをリレーションしてそこからデータを引っ張ってくる方法
+section6の Render Profilesでは表示させるProfileに紐づけているSkillをループで表示させている
+その時の方法と注意点
+1. models.pyで1対多の関係としてProfileと繋ぐ 
+2. templateの方ではこんな感じ。.skillがリンクしているテーブル、_setを繋いで.allで全件取得
+```html
+    {% for skill in profile.skill_set.all %}
+    <span class="tag tag--pill tag--main">
+        <small>{{skill}}</small>
+    </span>
+    {% endfor %}
+```
+インスタンス名.モデル名_set.all()
+「Django ForeignKey 逆参照 _set all」
+- https://brhk.me/programing/django-foreignkey/
+- https://chuna.tech/blog/web-application/Django/reference-foreignkey/

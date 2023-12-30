@@ -1,0 +1,199 @@
+{% extends 'main.html' %} {% block content %}
+<!-- Main Section -->
+<main class="profile my-md">
+    <div class="container">
+        <div class="layout">
+            <div class="column column--1of3">
+                <div class="card text-center">
+                    <div class="card__body dev">
+                        <img
+                            class="avatar avatar--xl"
+                            src="{{ profile.profile_image.url }}"
+                        />
+                        <h2 class="dev__name">{{profile.name}}</h2>
+                        <p class="dev__title">{{profile.short_intro}}</p>
+                        <p class="dev__location">
+                            Based in{{profile.location}}
+                        </p>
+                        <ul class="dev__social">
+                            {% if profile.social_github %}
+                            <li>
+                                <a
+                                    title="Github"
+                                    href="{{profile.social_github}}"
+                                    target="_blank"
+                                    style="width: 50px; height: 50px"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="100%"
+                                        height="100%"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                                        />
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endif %} {% if profile.social_twitter %}
+
+                            <li>
+                                <a
+                                    title="Twitter"
+                                    href="{{profile.social_twitter}}"
+                                    target="_blank"
+                                    style="height: 50px; width: 50px"
+                                    ><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="100%"
+                                        height="100%"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"
+                                        />
+                                    </svg>
+                                </a>
+                            </li>
+
+                            {% endif %} {% if profile.social_linkedin %}
+
+                            <li>
+                                <a
+                                    title="LinkedIn"
+                                    href="#"
+                                    target="_blank"
+                                    style="
+                                        height: 50px;
+                                        width: 50px;
+                                        background-color: teal;
+                                    "
+                                    ><i class="im im-linkedin"></i
+                                ></a>
+                            </li>
+                            {% endif %} {% if profile.social_stackoverflow %}
+                            <li>
+                                <a
+                                    title="Stackoverflow"
+                                    href="#"
+                                    target="_blank"
+                                    style="
+                                        height: 50px;
+                                        width: 50px;
+                                        background-color: teal;
+                                    "
+                                    ><i class="im im-stackoverflow"></i
+                                ></a>
+                            </li>
+                            {% endif %} {% if profile.social_website %}
+                            <li>
+                                <a
+                                    title="Personal Website"
+                                    href="{{profile.social_website}}"
+                                    target="_blank"
+                                    style="height: 50px; width: 50px"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="100%"
+                                        height="100%"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"
+                                        />
+                                    </svg>
+                                </a>
+                            </li>
+
+                            {% endif %}
+                        </ul>
+                        <a href="#" class="btn btn--sub btn--lg"
+                            >Send Message
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="column column--2of3">
+                <div class="devInfo">
+                    <h3 class="devInfo__title">About Me</h3>
+                    <p class="devInfo__about">{{profile.bio}}</p>
+                </div>
+                <div class="devInfo">
+                    <h3 class="devInfo__title">Skills</h3>
+                    <div class="devInfo__skills">
+                        {% for skill in topSkills %}
+                        <div class="devSkill">
+                            <h4 class="devSkill__title">{{skill.name}}</h4>
+                            <p class="devSkill__info">{{skill.description}}</p>
+                        </div>
+
+                        {% endfor %}
+
+                        <h3 class="devInfo__subtitle">Other Skills</h3>
+                        <div class="devInfo__otherSkills">
+                            {% for skill in otherSkills %}
+                            <span class="tag tag--pill tag--sub tag--lg">
+                                <small>{{skill}}</small>
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="devInfo">
+                    <h3 class="devInfo__title">Projects</h3>
+                    <div class="grid grid--two">
+                        {% for project in profile.project_set.all %}
+
+                        <div class="column">
+                            <div class="card project">
+                                <a
+                                    href="{% url 'project' project.id %}"
+                                    class="project"
+                                >
+                                    <img
+                                        class="project__thumbnail"
+                                        src="{{project.featured_image.url}}"
+                                        alt="project thumbnail"
+                                    />
+                                    <div class="card__body">
+                                        <h3 class="project__title">
+                                            {{project.title}}
+                                        </h3>
+                                        <p>
+                                            <a
+                                                class="project__author"
+                                                href="{{project.featured_image}}"
+                                                >By {{project.owner.name}}</a
+                                            >
+                                        </p>
+                                        <p class="project--rating">
+                                            <span style="font-weight: bold"
+                                                >{{ project.vote_ratio}}%</span
+                                            >
+                                            Postitive Feedback
+                                            ({{project.vote_total}}
+                                            Vote{{project.vote_total|pluralize:"s"}})
+                                        </p>
+                                        <div class="project__tags">
+                                            {% for tag in project.tags.all %}
+                                            <span
+                                                class="tag tag--pill tag--main">
+                                                <small>{{tag}}</small>
+                                            </span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

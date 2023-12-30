@@ -70,3 +70,6 @@ https://pypi.org/project/whitenoise/
 
 staticなファイルの本番環境での読み込みについて
 https://tell-k.github.io/djangocongressjp2019
+
+### VS Codeのhtmlファイルの設定変更の方法
+https://qiita.com/daisuke_s/items/a0cbb75bea9c11735249
