@@ -57,3 +57,4 @@ section6の Render Profilesでは表示させるProfileに紐づけているSkil
 「Django ForeignKey 逆参照 _set all」
 - https://brhk.me/programing/django-foreignkey/
 - https://chuna.tech/blog/web-application/Django/reference-foreignkey/
+- https://daeudaeu.com/django-relation/
