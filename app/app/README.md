@@ -58,3 +58,15 @@ section6の Render Profilesでは表示させるProfileに紐づけているSkil
 - https://brhk.me/programing/django-foreignkey/
 - https://chuna.tech/blog/web-application/Django/reference-foreignkey/
 - https://daeudaeu.com/django-relation/
+
+
+#### userの登録削除などをapp側にキャッチさせたい場合は、signals.pyで切り分けて書いた上で同じappでのapps.pyのclassの中に以下のdefを追記しないと信号をキャッチできない
+```python
+class UsersConfig(AppConfig):
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "users"
+    
+    # signalをアプリにキャッチさせたいのであればappsのところに書く必要がある
+    def ready(self):
+        import users.signals
+```

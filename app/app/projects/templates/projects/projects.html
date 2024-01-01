@@ -1,8 +1,6 @@
 {% extends 'main.html' %} {% block content %} {% comment %}
 これで別のファイルが呼び込める {% endcomment %}
-<h1>Projects templates</h1>
-
-<table>
+{% comment %} <table>
     <tr>
         <th>Project</th>
         <th>Positive Votes</th>
@@ -19,7 +17,7 @@
         <td><a href="{% url 'project' project.id%}">View</a></td>
     </tr>
     {% endfor %}
-</table>
+</table> {% endcomment %}
 <ul>
     {% comment %} {% for project in projects %}
     <li>

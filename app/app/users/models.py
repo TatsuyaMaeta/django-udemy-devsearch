@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
+
 # django.contrib.auth
 # https://docs.djangoproject.com/ja/5.0/ref/contrib/auth/
 
