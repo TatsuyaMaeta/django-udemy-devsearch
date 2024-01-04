@@ -70,3 +70,31 @@ class UsersConfig(AppConfig):
     def ready(self):
         import users.signals
 ```
+
+
+## 新規にページを追加するとき
+1. templateでhtmlファイルを作成
+   1. extendsでbase htmlファイルを読み込み
+   2. blockで差し込みする部分とその中身を作る
+      1. ここは初めは軽くでもOK
+2. views.pyに新規のdefを作成
+   
+   1.  どこのhmtlファイルに飛ばすのかを設定
+   ```python 
+   def loginPage(request):
+    render(request,'users/login_register.html')
+   ```
+3. urls.pyにpathを追記
+   
+   1. 
+   ```python
+   # loginの時にviews.pyのloginPageのdef見に行ってね
+   path("login", views.loginPage, name="login"),
+   ```
+   2. チェック用
+      1. kenji
+      2. kkkkk123_
+
+## フラッシュメッセージ
+contrib > message
+[message](https://docs.djangoproject.com/ja/5.0/ref/contrib/messages/)

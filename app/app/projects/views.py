@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from .models import Project
 from .forms import ProjectForm
 
+# デコレーター
+from django.contrib.auth.decorators import login_required
+
 # projectList = [
 #     {"id": 1, "title": "hoge", "description": "hogehoge"},
 #     {"id": 2, "title": "fuga", "description": "fugafuga"},
@@ -33,6 +36,7 @@ def project(request, pk):
     )
 
 
+@login_required(login_url="login")
 def createProject(request):
     # forms.pyからclassを引っ張ってくる
     form = ProjectForm()
@@ -48,6 +52,7 @@ def createProject(request):
     return render(request, "projects/project_form.html", context)
 
 
+@login_required(login_url="login")
 def updateProject(request, pk):
     project = Project.objects.get(id=pk)
     form = ProjectForm(instance=project)
@@ -64,6 +69,7 @@ def updateProject(request, pk):
     return render(request, "projects/project_form.html", context)
 
 
+@login_required(login_url="login")
 def deleteProject(request, pk):
     project = Project.objects.get(id=pk)
 
