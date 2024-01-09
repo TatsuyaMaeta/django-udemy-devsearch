@@ -1,5 +1,11 @@
 app用 readme
 
+### hotreload & runserverコマンド
+```bash
+python manage.py livereload 
+
+```
+
 project外のtemplateフォルダの設定の仕方
 ![app外のtemplateの設定](ref-img/projects外のtemplatesフォルダの設定.png)
 
@@ -98,3 +104,28 @@ class UsersConfig(AppConfig):
 ## フラッシュメッセージ
 contrib > message
 [message](https://docs.djangoproject.com/ja/5.0/ref/contrib/messages/)
+
+
+### 追加でformを入れる時の手順(ページ作成から)
+1. formを作るまでの下地作り
+   1. templateフォルダでの表示させるhtmlを作る
+   2. views.pyでそのtemplate htmlに飛ぶようにdefを定義
+      1. まず初めはcontextは中身は空でいい
+      2. ``` return render(request, "users/skill_form.html", context) ```
+      3. loginしていることが必須の場合はちゃんと```@login_required()```をつけること
+   3. 同じappフォルダのurls.pyでpathを定義
+      1. ``` path("create-skill/", views.createSkill, name="create-skill"), ```
+   4. 他のファイルから飛べるようにする場合はそのファイルのhrefをurlで書き換えて飛べるかチェックする
+2. formの準備
+   1. forms.pyで同じ階層のmodels.pyから使いたいclassがある場合、importする
+      1. ``` from .models import Profile,Skill```
+   2. そのforms.pyにてclassを新しく定義する
+      1. class Meta:の記述も忘れずに！
+   3. views.pyにさっきのforms.pyで新しく定義したclassをimportしておく
+   4. views.pyで1.2で定義したdefの中でにformの情報を取得できるようにする
+      1. ``` form = SkillForm() ```
+
+### 前のページにgo backさせたい時
+- 飛ぶ前のページのhtmlのaタグで以下のようなhrefの値にする
+  - ```href={% url 'hoge' user.id %}?next=/account ```
+  - このようにnext=[ページの名前]とすることで、遷移先で``` {{request.GET.next}}```というhrefが使用できる
