@@ -31,11 +31,17 @@ class Project(models.Model):
         ordering = ["created"]
         # これで降順になる
         # ordering =["-created"]
+    
+    @property
+    def getVoteCount(self):
+        reviews = self.review_set.all()
+        
 
 
 class Review(models.Model):
     VOTE_TYPE = (("up", "up vote"), ("down", "down vote"))
-    # owner
+
+    owner = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True)
     # 関連付けたい外部キーを設定する場合は第一引数にそのclass名を入れる
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
@@ -44,6 +50,10 @@ class Review(models.Model):
     id = models.UUIDField(
         default=uuid.uuid4, unique=True, primary_key=True, editable=False
     )
+    
+    
+    class Meta:
+        unique_together = [["owner","project"]]
 
     def __str__(self) -> str:
         return self.value

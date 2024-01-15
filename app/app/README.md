@@ -129,3 +129,14 @@ contrib > message
 - 飛ぶ前のページのhtmlのaタグで以下のようなhrefの値にする
   - ```href={% url 'hoge' user.id %}?next=/account ```
   - このようにnext=[ページの名前]とすることで、遷移先で``` {{request.GET.next}}```というhrefが使用できる
+
+
+## Formをforms.pyで作ったらviews.pyで使える様にimportすること！
+
+
+### エラーパターン
+
+```bash
+RelatedObjectDoesNotExist at /projects/project/8827f865-1ca4-4d55-8abe-497802623084/
+User has no profile.
+```

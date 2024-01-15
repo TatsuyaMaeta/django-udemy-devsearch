@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Project, Tag
-from .forms import ProjectForm
+from django.contrib import messages
+from .forms import ProjectForm,ReviewForm
 
 # デコレーター
 from django.contrib.auth.decorators import login_required
@@ -26,7 +27,7 @@ def projects(request):
 
     projects, search_query = searchProjects(request)
 
-    custom_range, projects = paginateProjects(request, projects, 6)
+    custom_range, projects = paginateProjects(request, projects, 5)
 
     context = {
         "projects": projects,
@@ -37,16 +38,27 @@ def projects(request):
 
 
 def project(request, pk):
-    # projectObj = None
-    # for i in projectList:
-    #     if i["id"] == int(pk):
-    #         projectObj = i
     projectObj = Project.objects.get(id=pk)
+    
+    form = ReviewForm()
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        review = form.save(commit=False)
+        review.project = projectObj
+        print("request.user: ",request.user.profile)
+        review.owner = request.user.profile
+        review.save()
+        
+        # update project
+        messages.success(request, 'Your review was success committed!!')
+        return redirect('project' , pk=projectObj.id)
+    
     # 上記のprojectObjに含まれているtagsのカラムの要素を全て取得している
     tags = projectObj.tags.all()
 
     return render(
-        request, "projects/single-project.html", {"project": projectObj, "tags": tags}
+        request, "projects/single-project.html", {"project": projectObj, "tags": tags,"form":form}
     )
 
 
