@@ -339,6 +339,78 @@
         "documentation": {}
     },
     {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Paginator",
+        "importPath": "django.core.paginator",
+        "description": "django.core.paginator",
+        "isExtraImport": true,
+        "detail": "django.core.paginator",
+        "documentation": {}
+    },
+    {
+        "label": "PageNotAnInteger",
+        "importPath": "django.core.paginator",
+        "description": "django.core.paginator",
+        "isExtraImport": true,
+        "detail": "django.core.paginator",
+        "documentation": {}
+    },
+    {
+        "label": "EmptyPage",
+        "importPath": "django.core.paginator",
+        "description": "django.core.paginator",
+        "isExtraImport": true,
+        "detail": "django.core.paginator",
+        "documentation": {}
+    },
+    {
+        "label": "Paginator",
+        "importPath": "django.core.paginator",
+        "description": "django.core.paginator",
+        "isExtraImport": true,
+        "detail": "django.core.paginator",
+        "documentation": {}
+    },
+    {
+        "label": "PageNotAnInteger",
+        "importPath": "django.core.paginator",
+        "description": "django.core.paginator",
+        "isExtraImport": true,
+        "detail": "django.core.paginator",
+        "documentation": {}
+    },
+    {
+        "label": "EmptyPage",
+        "importPath": "django.core.paginator",
+        "description": "django.core.paginator",
+        "isExtraImport": true,
+        "detail": "django.core.paginator",
+        "documentation": {}
+    },
+    {
         "label": "render",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
@@ -832,11 +904,29 @@
         "documentation": {}
     },
     {
+        "label": "paginateProjects",
+        "kind": 2,
+        "importPath": "app.projects.utils",
+        "description": "app.projects.utils",
+        "peekOfCode": "def paginateProjects(request, projects, results):\n    page = request.GET.get(\"page\")\n    results = 4  # 1pageでのプロジェクトの表示数\n    paginator = Paginator(projects, results)\n    try:\n        projects = paginator.page(page)\n    except PageNotAnInteger:\n        page = 1\n        projects = paginator.page(1)\n    except EmptyPage:",
+        "detail": "app.projects.utils",
+        "documentation": {}
+    },
+    {
+        "label": "searchProjects",
+        "kind": 2,
+        "importPath": "app.projects.utils",
+        "description": "app.projects.utils",
+        "peekOfCode": "def searchProjects(request):\n    search_query = \"\"\n    if request.GET.get(\"search_query\"):\n        search_query = request.GET.get(\"search_query\")\n    tags = Tag.objects.filter(name__icontains=search_query)\n    # 1つのインスタンスだけ戻して欲しいのでdistinctを使用\n    projects = Project.objects.distinct().filter(\n        Q(title__icontains=search_query)\n        | Q(description__icontains=search_query)\n        | Q(owner__name__icontains=search_query)",
+        "detail": "app.projects.utils",
+        "documentation": {}
+    },
+    {
         "label": "projects",
         "kind": 2,
         "importPath": "app.projects.views",
         "description": "app.projects.views",
-        "peekOfCode": "def projects(request):\n    # msg = \"Projects\"\n    # number = 100\n    # context = {\"msg\": msg, \"num\": number, \"projects\": projectList}\n    project = Project.objects.all()\n    context = {\"projects\": project}\n    return render(request, \"projects/projects.html\", context)\ndef project(request, pk):\n    # projectObj = None\n    # for i in projectList:",
+        "peekOfCode": "def projects(request):\n    # msg = \"Projects\"\n    # number = 100\n    # context = {\"msg\": msg, \"num\": number, \"projects\": projectList}\n    projects, search_query = searchProjects(request)\n    custom_range, projects = paginateProjects(request, projects, 6)\n    context = {\n        \"projects\": projects,\n        \"search_query\": search_query,\n        \"custom_range\": custom_range,",
         "detail": "app.projects.views",
         "documentation": {}
     },
@@ -935,7 +1025,7 @@
         "kind": 6,
         "importPath": "app.users.forms",
         "description": "app.users.forms",
-        "peekOfCode": "class SkillForm(ModelForm):\n    class Meta:\n        model =Skill\n        fields =\"__all__\"\n        exclude =['owner']\n    # formのパーツにclassを当てる方法\n    # ===========================\n    # initファイルをoverwriteしてclassを追加する\n    def __init__(self, *args, **kwargs):\n        super(SkillForm, self).__init__(*args, **kwargs)",
+        "peekOfCode": "class SkillForm(ModelForm):\n    class Meta:\n        model = Skill\n        fields = \"__all__\"\n        exclude = [\"owner\"]\n    # formのパーツにclassを当てる方法\n    # ===========================\n    # initファイルをoverwriteしてclassを追加する\n    def __init__(self, *args, **kwargs):\n        super(SkillForm, self).__init__(*args, **kwargs)",
         "detail": "app.users.forms",
         "documentation": {}
     },
@@ -994,6 +1084,24 @@
         "documentation": {}
     },
     {
+        "label": "paginateProfiles",
+        "kind": 2,
+        "importPath": "app.users.utils",
+        "description": "app.users.utils",
+        "peekOfCode": "def paginateProfiles(request, profiles, results):\n    page = request.GET.get(\"page\")\n    paginator = Paginator(profiles, results)\n    try:\n        profiles = paginator.page(page)\n    except PageNotAnInteger:\n        page = 1\n        profiles = paginator.page(1)\n    except EmptyPage:\n        page = paginator.num_pages",
+        "detail": "app.users.utils",
+        "documentation": {}
+    },
+    {
+        "label": "searchProfiles",
+        "kind": 2,
+        "importPath": "app.users.utils",
+        "description": "app.users.utils",
+        "peekOfCode": "def searchProfiles(request):\n    search_query = \"\"\n    if request.GET.get(\"search_query\"):\n        search_query = request.GET.get(\"search_query\")\n    # Skillモデルをimportしてskillの名前を小文字で平してから検索\n    skills = Skill.objects.filter(name__icontains=search_query)\n    profiles = Profile.objects.distinct().filter(\n        Q(name__icontains=search_query)\n        | Q(short_intro__icontains=search_query)\n        |",
+        "detail": "app.users.utils",
+        "documentation": {}
+    },
+    {
         "label": "loginUser",
         "kind": 2,
         "importPath": "app.users.views",
@@ -1025,7 +1133,7 @@
         "kind": 2,
         "importPath": "app.users.views",
         "description": "app.users.views",
-        "peekOfCode": "def profiles(request):\n    profiles = Profile.objects.all()\n    context = {\"profiles\": profiles}\n    return render(request, \"users/profiles.html\", context)\ndef userProfile(request, pk):\n    profile = Profile.objects.get(id=pk)\n    # descriptionがないやつを除外したものをtopskillsに代入している\n    topSkills = profile.skill_set.exclude(description__exact=\"\")\n    # descriptionがないやつを代入している\n    otherSkills = profile.skill_set.filter(description=\"\")",
+        "peekOfCode": "def profiles(request):\n    # 関数化してutlsとしてファイルを切り分け\n    profiles, search_query = searchProfiles(request)\n    custom_range, profiles = paginateProfiles(request, profiles, 3)\n    context = {\n        \"profiles\": profiles,\n        \"search_query\": search_query,\n        \"custom_range\": custom_range,\n    }\n    return render(request, \"users/profiles.html\", context)",
         "detail": "app.users.views",
         "documentation": {}
     },
@@ -1070,7 +1178,7 @@
         "kind": 2,
         "importPath": "app.users.views",
         "description": "app.users.views",
-        "peekOfCode": "def createSkill(request):\n    profile=request.user.profile\n    form = SkillForm()\n    if request.method ==\"POST\":\n        form = SkillForm(request.POST)\n        if form.is_valid():\n            skill = form.save(commit=False)\n            skill.owner = profile\n            skill.save()\n            messages.success(request, \"スキルが追加されました\")",
+        "peekOfCode": "def createSkill(request):\n    profile = request.user.profile\n    form = SkillForm()\n    if request.method == \"POST\":\n        form = SkillForm(request.POST)\n        if form.is_valid():\n            skill = form.save(commit=False)\n            skill.owner = profile\n            skill.save()\n            messages.success(request, \"スキルが追加されました\")",
         "detail": "app.users.views",
         "documentation": {}
     },
@@ -1079,7 +1187,7 @@
         "kind": 2,
         "importPath": "app.users.views",
         "description": "app.users.views",
-        "peekOfCode": "def updateSkill(request,pk):\n    profile=request.user.profile\n    skill = profile.skill_set.get(id=pk)\n    form = SkillForm(instance=skill)\n    if request.method ==\"POST\":\n        form = SkillForm(request.POST,instance=skill)\n        if form.is_valid():\n            form.save()\n            messages.success(request, \"スキルが変更されました\")\n            return redirect('account')",
+        "peekOfCode": "def updateSkill(request, pk):\n    profile = request.user.profile\n    skill = profile.skill_set.get(id=pk)\n    form = SkillForm(instance=skill)\n    if request.method == \"POST\":\n        form = SkillForm(request.POST, instance=skill)\n        if form.is_valid():\n            form.save()\n            messages.success(request, \"スキルが変更されました\")\n            return redirect(\"account\")",
         "detail": "app.users.views",
         "documentation": {}
     },
@@ -1088,7 +1196,7 @@
         "kind": 2,
         "importPath": "app.users.views",
         "description": "app.users.views",
-        "peekOfCode": "def deleteSkill(request,pk):\n    profile=request.user.profile\n    skill = profile.skill_set.get(id=pk)\n    # 小文字のpostだと機能しないので注意\n    if request.method ==\"POST\":\n        skill.delete()\n        messages.success(request, \"スキルが削除されました\")\n        return redirect('account')\n    context={\"object\":skill}\n    return render(request,'delete_template.html',context)",
+        "peekOfCode": "def deleteSkill(request, pk):\n    profile = request.user.profile\n    skill = profile.skill_set.get(id=pk)\n    # 小文字のpostだと機能しないので注意\n    if request.method == \"POST\":\n        skill.delete()\n        messages.success(request, \"スキルが削除されました\")\n        return redirect(\"account\")\n    context = {\"object\": skill}\n    return render(request, \"delete_template.html\", context)",
         "detail": "app.users.views",
         "documentation": {}
     },

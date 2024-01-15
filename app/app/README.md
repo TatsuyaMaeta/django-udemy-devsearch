@@ -98,7 +98,7 @@ class UsersConfig(AppConfig):
    path("login", views.loginPage, name="login"),
    ```
    2. チェック用
-      1. kenji
+      1. kenji_usr
       2. kkkkk123_
 
 ## フラッシュメッセージ

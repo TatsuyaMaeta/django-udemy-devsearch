@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 
+# 検索用
+# from django.db.models import Q
+from .utils import searchProfiles, paginateProfiles
+
+
 # デコレーター
 from django.contrib.auth.decorators import login_required
 
@@ -77,8 +82,16 @@ def registerUser(request):
 
 
 def profiles(request):
-    profiles = Profile.objects.all()
-    context = {"profiles": profiles}
+    # 関数化してutlsとしてファイルを切り分け
+    profiles, search_query = searchProfiles(request)
+
+    custom_range, profiles = paginateProfiles(request, profiles, 3)
+
+    context = {
+        "profiles": profiles,
+        "search_query": search_query,
+        "custom_range": custom_range,
+    }
     return render(request, "users/profiles.html", context)
 
 
@@ -163,50 +176,51 @@ def checkContextKeyAndValues(arg):
 
 @login_required(login_url="login")
 def createSkill(request):
-    profile=request.user.profile
+    profile = request.user.profile
     form = SkillForm()
-    
-    if request.method =="POST":
+
+    if request.method == "POST":
         form = SkillForm(request.POST)
-        
+
         if form.is_valid():
             skill = form.save(commit=False)
             skill.owner = profile
             skill.save()
             messages.success(request, "スキルが追加されました")
-            
-            return redirect('account')
-        
-    context = {"form":form}
+
+            return redirect("account")
+
+    context = {"form": form}
     return render(request, "users/skill_form.html", context)
 
+
 @login_required(login_url="login")
-def updateSkill(request,pk):
-    profile=request.user.profile
+def updateSkill(request, pk):
+    profile = request.user.profile
     skill = profile.skill_set.get(id=pk)
     form = SkillForm(instance=skill)
-    
-    if request.method =="POST":
-        form = SkillForm(request.POST,instance=skill)
+
+    if request.method == "POST":
+        form = SkillForm(request.POST, instance=skill)
         if form.is_valid():
             form.save()
             messages.success(request, "スキルが変更されました")
-            
-            return redirect('account')
-        
-    context = {"form":form}
+
+            return redirect("account")
+
+    context = {"form": form}
     return render(request, "users/skill_form.html", context)
 
 
-def deleteSkill(request,pk):
-    profile=request.user.profile
+def deleteSkill(request, pk):
+    profile = request.user.profile
     skill = profile.skill_set.get(id=pk)
-    
+
     # 小文字のpostだと機能しないので注意
-    if request.method =="POST":
+    if request.method == "POST":
         skill.delete()
         messages.success(request, "スキルが削除されました")
-        return redirect('account')
-    
-    context={"object":skill}
-    return render(request,'delete_template.html',context)
+        return redirect("account")
+
+    context = {"object": skill}
+    return render(request, "delete_template.html", context)

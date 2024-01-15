@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import Project
+from .models import Project, Tag
 from .forms import ProjectForm
 
 # デコレーター
 from django.contrib.auth.decorators import login_required
+
+from django.db.models import Q
+
+from .utils import searchProjects, paginateProjects
+
 
 # projectList = [
 #     {"id": 1, "title": "hoge", "description": "hogehoge"},
@@ -18,8 +23,16 @@ def projects(request):
     # msg = "Projects"
     # number = 100
     # context = {"msg": msg, "num": number, "projects": projectList}
-    project = Project.objects.all()
-    context = {"projects": project}
+
+    projects, search_query = searchProjects(request)
+
+    custom_range, projects = paginateProjects(request, projects, 6)
+
+    context = {
+        "projects": projects,
+        "search_query": search_query,
+        "custom_range": custom_range,
+    }
     return render(request, "projects/projects.html", context)
 
 

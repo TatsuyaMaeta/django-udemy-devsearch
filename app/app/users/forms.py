@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 # プロフ編集用
-from .models import Profile,Skill
+from .models import Profile, Skill
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -62,9 +62,9 @@ class ProfileForm(ModelForm):
 
 class SkillForm(ModelForm):
     class Meta:
-        model =Skill
-        fields ="__all__"
-        exclude =['owner']
+        model = Skill
+        fields = "__all__"
+        exclude = ["owner"]
 
     # formのパーツにclassを当てる方法
     # ===========================
@@ -75,4 +75,3 @@ class SkillForm(ModelForm):
         # ループ処理で全ての項目にclassを付与
         for name, field in self.fields.items():
             field.widget.attrs.update({"class": "input"})
-

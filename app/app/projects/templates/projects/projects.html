@@ -1,6 +1,6 @@
 {% extends 'main.html' %} {% block content %} {% comment %}
-これで別のファイルが呼び込める {% endcomment %}
-{% comment %} <table>
+これで別のファイルが呼び込める {% endcomment %} {% comment %}
+<table>
     <tr>
         <th>Project</th>
         <th>Positive Votes</th>
@@ -17,7 +17,8 @@
         <td><a href="{% url 'project' project.id%}">View</a></td>
     </tr>
     {% endfor %}
-</table> {% endcomment %}
+</table>
+{% endcomment %}
 <ul>
     {% comment %} {% for project in projects %}
     <li>
@@ -38,7 +39,7 @@
             </div>
 
             <div class="hero-section__search">
-                <form class="form" action="#" method="get">
+                <form class="form" id="searchForm" action="{% url 'projects' %}" method="get">
                     <div class="form__field">
                         <label for="formInput#search"
                             >Search By Projects
@@ -47,8 +48,9 @@
                             class="input input--text"
                             id="formInput#search"
                             type="text"
-                            name="text"
+                            name="search_query"
                             placeholder="Search by Project Title"
+                            value="{{search_query}}"
                         />
                     </div>
 
@@ -109,21 +111,8 @@
         </div>
     </section>
 
-    <div class="pagination">
-        <ul class="container">
-            <li><a href="#" class="btn btn--disabled">&#10094; Prev</a></li>
-            <li><a href="#" class="btn btn--sub">01</a></li>
-            <li><a href="#" class="btn">02</a></li>
-            <li><a href="#" class="btn">03</a></li>
-            <li><a href="#" class="btn">04</a></li>
-            <li><a href="#" class="btn">05</a></li>
-            <li><a href="#" class="btn">06</a></li>
-            <li><a href="#" class="btn">07</a></li>
-            <li><a href="#" class="btn">08</a></li>
-            <li><a href="#" class="btn">09</a></li>
-            <li><a href="#" class="btn">10</a></li>
-            <li><a href="#" class="btn">Next &#10095;</a></li>
-        </ul>
-    </div>
+    {% comment %} with queryset=projectsと書くことで指定した変数でinclude先で使用できる {% endcomment %}
+    {% include 'pagination.html' with queryset=projects custom_range=custom_range %}
+
 </main>
 {% endblock content %}
