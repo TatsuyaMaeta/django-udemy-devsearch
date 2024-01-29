@@ -3,7 +3,7 @@ from django.forms import ModelForm, widgets
 
 from django import forms
 
-from .models import Project,Review
+from .models import Project, Review
 
 
 class ProjectForm(ModelForm):
@@ -44,13 +44,9 @@ class ProjectForm(ModelForm):
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields=["value","body"]
-        
-        labels={
-            "value":"place your vote",
-            "body":"Add a comment with your bote"
-        }
-    
+        fields = ["value", "body"]
+
+        labels = {"value": "place your vote", "body": "Add a comment with your bote"}
 
     # ===========================
     # formのパーツにclassを当てる方法
@@ -62,6 +58,3 @@ class ReviewForm(ModelForm):
         # ループ処理で全ての項目にclassを付与
         for name, field in self.fields.items():
             field.widget.attrs.update({"class": "input"})
-
-    
-    
