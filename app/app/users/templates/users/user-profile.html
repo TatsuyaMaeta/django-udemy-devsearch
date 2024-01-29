@@ -24,7 +24,7 @@
                                     target="_blank"
                                     style="width: 50px; height: 50px"
                                 >
-                                <i class="fa-brands fa-github fa-3x"></i>
+                                    <i class="fa-brands fa-github fa-3x"></i>
                                 </a>
                             </li>
                             {% endif %} {% if profile.social_twitter %}
@@ -35,7 +35,7 @@
                                     href="{{profile.social_twitter}}"
                                     target="_blank"
                                     style="height: 50px; width: 50px"
-                                    >
+                                >
                                     <i class="fa-brands fa-twitter fa-3x"></i>
                                 </a>
                             </li>
@@ -53,7 +53,7 @@
                                         background-color: teal;
                                     "
                                     ><i class="fa-brands fa-linkedin fa-3x"></i>
-                                 </a>
+                                </a>
                             </li>
                             {% endif %} {% if profile.social_stackoverflow %}
                             <li>
@@ -76,15 +76,21 @@
                                     href="{{profile.social_website}}"
                                     target="_blank"
                                     style="height: 50px; width: 50px"
-                                ><i class="fa-solid fa-globe fa-3x"></i>
+                                    ><i class="fa-solid fa-globe fa-3x"></i>
                                 </a>
                             </li>
 
                             {% endif %}
                         </ul>
-                        <a href="#" class="btn btn--sub btn--lg"
+
+                        {% if request.user.profile.id != profile.id %}
+
+                        <a
+                            href="{% url 'create-message' profile.id %}"
+                            class="btn btn--sub btn--lg"
                             >Send Message
                         </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -152,7 +158,8 @@
                                         <div class="project__tags">
                                             {% for tag in project.tags.all %}
                                             <span
-                                                class="tag tag--pill tag--main">
+                                                class="tag tag--pill tag--main"
+                                            >
                                                 <small>{{tag}}</small>
                                             </span>
                                             {% endfor %}

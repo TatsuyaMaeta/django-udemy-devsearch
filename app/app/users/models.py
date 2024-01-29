@@ -48,3 +48,23 @@ class Skill(models.Model):
 
     def __str__(self) -> str:
         return str(self.name)
+
+class Message(models.Model):
+    sender = models.ForeignKey(Profile, on_delete=models.SET_NULL,blank=True, null=True)
+    recipient = models.ForeignKey(Profile, on_delete=models.SET_NULL,blank=True, null=True,related_name="messages")
+    name = models.CharField(max_length=200,blank=True, null=True)
+    email = models.CharField(max_length=200,blank=True, null=True)
+    subject = models.CharField(max_length=200,blank=True, null=True)
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False,null=True)
+    id = models.UUIDField(
+        default=uuid.uuid4, unique=True, primary_key=True, editable=False
+    )
+    
+    def __str__(self) -> str:
+        return self.subject
+    
+    class Meta:
+        # 下記のlistのトップの順からソート処理をしていく
+        ordering =["is_read","-created"]
